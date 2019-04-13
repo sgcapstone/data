@@ -3,4 +3,6 @@ CREATE TABLE services(
   provider_id int NOT NULL,
   CONSTRAINT service_pkey PRIMARY KEY(service_name),
   FOREIGN KEY (provider_id) REFERENCES provider(provider_id)
+  )WITH (
+    OIDS=FALSE
 );
