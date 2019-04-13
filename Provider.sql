@@ -9,7 +9,9 @@ CREATE TABLE provider (
   role character varying(32) NOT NULL CHECK (role in ('customer', 'service provider')) DEFAULT('service provider'),
   phone character varying(15) NOT NULL DEFAULT(''),
   email character varying(50) NOT NULL DEFAULT(''),
-  password character varying(20) NOT NULL DEFAULT(''),                                                    
+  password character varying(20) NOT NULL DEFAULT(''),
+  createdAt timestamp without time zone NOT NULL DEFAULT now(),
+  updatedAt timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT provider_pkey PRIMARY KEY(id),
   FOREIGN KEY (provider_id) REFERENCES services (provider_id)
 ) WITH (

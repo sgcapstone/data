@@ -8,6 +8,8 @@ CREATE TABLE customer (
   zip int NOT NULL,
   password character varying(255) NOT NULL,
   customer_id int NOT NULL DEFAULT(1),
+  createdAt timestamp without time zone NOT NULL DEFAULT now(),
+  updatedAt timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT customer_pkey PRIMARY KEY (id)
 ) WITH (
     OIDS=FALSE
