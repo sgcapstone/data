@@ -5,11 +5,10 @@ CREATE TABLE customer (
   address character varying(50) NOT NULL DEFAULT(''),
   city character varying(25) NOT NULL DEFAULT(''),
   state character varying(15) NOT NULL DEFAULT(''),
-  zip int NOT NULL DEFAULT(''),
+  zip int NOT NULL,
   password character varying(255) NOT NULL,
   customer_id int NOT NULL DEFAULT(1),
-  role character varying(32) NOT NULL CHECK (role in ('customer', 'service provider')) DEFAULT ('customer')
   CONSTRAINT customer_pkey PRIMARY KEY (id)
 ) WITH (
-  OIDS=FALSE
+    OIDS=FALSE
 );
