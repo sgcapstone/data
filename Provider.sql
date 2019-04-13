@@ -1,4 +1,5 @@
 CREATE TABLE provider (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
   provider_name character varying(50) NOT NULL DEFAULT(''),
   address character varying(50) NOT NULL DEFAULT(''),
   city character varying(20) NOT NULL DEFAULT(''),

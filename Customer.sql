@@ -1,5 +1,5 @@
 CREATE TABLE customer (
-  --id uuid NOT NULL DEFAULT gen_random_uuid(),
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
   first_name character varying(15) NOT NULL DEFAULT(''),
   last_name character varying(15) NOT NULL DEFAULT(''),
   address character varying(50) NOT NULL DEFAULT(''),
@@ -8,7 +8,7 @@ CREATE TABLE customer (
   zip int NOT NULL,
   password character varying(255) NOT NULL,
   customer_id int NOT NULL DEFAULT(1),
-  CONSTRAINT customer_pkey PRIMARY KEY (customer_id)
+  CONSTRAINT customer_pkey PRIMARY KEY (id)
 ) WITH (
     OIDS=FALSE
 );
