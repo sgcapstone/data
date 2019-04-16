@@ -1,49 +1,71 @@
 -- --copy entire file (works whether first build or not)
--- CREATE EXTENSION IF NOT EXISTS pgcrypto;
---
--- DROP TABLE IF EXISTS products;
---
--- CREATE TABLE products (
---   id uuid NOT NULL DEFAULT gen_random_uuid(),
---   lookupcode character varying(32) NOT NULL DEFAULT(''),
---   count int NOT NULL DEFAULT(0),
---   created_at timestamp without time zone NOT NULL DEFAULT now(),
---   updated_at timestamp without time zone NOT NULL DEFAULT now(),
---   CONSTRAINT product_pkey PRIMARY KEY (id)
--- ) WITH (
---   OIDS=FALSE
--- );
---
--- CREATE INDEX ix_product_lookupcode
---   ON products
---   USING btree
---   (lower(lookupcode::text) COLLATE pg_catalog."default");
---
--- DROP TABLE IF EXISTS employees;
---
--- CREATE TABLE employees (
---   id uuid NOT NULL DEFAULT gen_random_uuid(),
---   first_name character varying(10) NOT NULL DEFAULT(''),
---   last_name character varying(10) NOT NULL DEFAULT(''),
---   employee_id int NOT NULL UNIQUE DEFAULT(1),
---   active boolean NOT NULL,
---   role character varying(32) NOT NULL CHECK (role in ('general manager','shift manager','cashier')),
---   manager_id uuid,
---   password character varying(255) NOT NULL,
---   created_at timestamp without time zone NOT NULL DEFAULT now(),
---   updated_at timestamp without time zone NOT NULL DEFAULT now(),
---   CONSTRAINT employee_pkey PRIMARY KEY (id),
---   FOREIGN KEY (manager_id) REFERENCES employees (id)
--- ) WITH (
---   OIDS=FALSE
--- );
---
--- INSERT INTO employees (first_name, last_name, employee_id, active, role, manager_id, password) VALUES (
---   'User',
---   'Name',
---   1,
---   '1',
---   'general manager',
---   NULL,
---   '$2a$10$twGUUsy2uSVQqWyJNZ4dDeYu4F.HOfw4YC4YddiMuywS8i8p/PNYW')
--- RETURNING id, created_at;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+DROP TABLE IF EXISTS consumer;
+
+CREATE TABLE consumer (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  first_name character varying(15) NOT NULL DEFAULT(''),
+  last_name character varying(15) NOT NULL DEFAULT(''),
+  address character varying(50) NOT NULL DEFAULT(''),
+  city character varying(25) NOT NULL DEFAULT(''),
+  state character varying(15) NOT NULL DEFAULT(''),
+  zip int NOT NULL,
+  password character varying(255) NOT NULL,
+  customer_id int NOT NULL UNIQUE DEFAULT(1),
+  created_at timestamp without time zone NOT NULL DEFAULT now(),
+  updated_at timestamp without time zone NOT NULL DEFAULT now(),
+  CONSTRAINT customer_pkey PRIMARY KEY (id)
+) WITH (
+    OIDS=FALSE
+);
+
+DROP TABLE IF EXISTS provider;
+
+CREATE TABLE provider (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  provider_name character varying(50) NOT NULL DEFAULT('Provider'),
+  address character varying(50) NOT NULL DEFAULT('1111 B St'),
+  city character varying(20) NOT NULL DEFAULT('City'),
+  state character varying(15) NOT NULL DEFAULT('State'),
+  zip int NOT NULL DEFAULT(12345),
+  provider_id int NOT NULL UNIQUE,
+  phone character varying(15) NOT NULL DEFAULT('18008675309'),
+  email character varying(50) NOT NULL DEFAULT('provider@provider.com'),
+  password character varying(20) NOT NULL DEFAULT('password'),
+  created_at timestamp without time zone NOT NULL DEFAULT now(),
+  updated_at timestamp without time zone NOT NULL DEFAULT now(),
+  CONSTRAINT provider_pkey PRIMARY KEY(id)
+) WITH (
+  OIDS=FALSE
+);
+
+DROP TABLE IF EXISTS services;
+
+CREATE TABLE services(
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  service_name character varying(25) NOT NULL DEFAULT(''),
+  provider_id int NOT NULL,
+  created_at timestamp without time zone NOT NULL DEFAULT now(),
+  updated_at timestamp without time zone NOT NULL DEFAULT now(),
+  CONSTRAINT service_pkey PRIMARY KEY(id),
+  FOREIGN KEY (provider_id) REFERENCES provider(provider_id)
+) WITH (
+  OIDS=FALSE
+);
+
+INSERT INTO consumer (first_name, last_name, address, city, state, zip, password, customer_id) VALUES (
+  'First',
+  'Last',
+  '1234 A St',
+  'City',
+  'State',
+  '12345',
+  'password',
+  1)
+RETURNING id, created_at;
+
+INSERT INTO provider (provider_id) VALUES (1) RETURNING id, created_at;
+
+INSERT INTO services (service_name, provider_id) VALUES ('mowing', 1) RETURNING id, created_at;
+INSERT INTO services (service_name, provider_id) VALUES ('weed-eating', 1) RETURNING id, created_at;
