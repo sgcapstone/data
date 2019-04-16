@@ -1,4 +1,4 @@
-CREATE TABLE services(
+CREATE TABLE services (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
   service_name character varying(25) NOT NULL DEFAULT(''),
   provider_id int NOT NULL,

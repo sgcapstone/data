@@ -1,6 +1,6 @@
 -- CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-CREATE TABLE consumer (
+CREATE TABLE consumers (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
   first_name character varying(15) NOT NULL DEFAULT(''),
   last_name character varying(15) NOT NULL DEFAULT(''),
@@ -17,7 +17,7 @@ CREATE TABLE consumer (
     OIDS=FALSE
 );
 
-INSERT INTO consumer (first_name, last_name, address, city, state, zip, password, customer_id) VALUES (
+INSERT INTO consumers (first_name, last_name, address, city, state, zip, password, customer_id) VALUES (
   'First',
   'Last',
   '1234 A St',

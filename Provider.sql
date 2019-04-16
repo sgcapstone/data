@@ -1,4 +1,4 @@
-CREATE TABLE provider (
+CREATE TABLE providers (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
   provider_name character varying(50) NOT NULL DEFAULT('Provider'),
   address character varying(50) NOT NULL DEFAULT('1111 B St'),
@@ -16,4 +16,4 @@ CREATE TABLE provider (
   OIDS=FALSE
 );
 
-INSERT INTO provider (provider_id) VALUES (1) RETURNING id, created_at;
+INSERT INTO providers (provider_id) VALUES (1) RETURNING id, created_at;

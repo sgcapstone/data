@@ -1,9 +1,9 @@
 -- --copy entire file (works whether first build or not)
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-DROP TABLE IF EXISTS consumer;
+DROP TABLE IF EXISTS consumers;
 
-CREATE TABLE consumer (
+CREATE TABLE consumers (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
   first_name character varying(15) NOT NULL DEFAULT(''),
   last_name character varying(15) NOT NULL DEFAULT(''),
@@ -20,9 +20,9 @@ CREATE TABLE consumer (
     OIDS=FALSE
 );
 
-DROP TABLE IF EXISTS provider;
+DROP TABLE IF EXISTS providers;
 
-CREATE TABLE provider (
+CREATE TABLE providers (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
   provider_name character varying(50) NOT NULL DEFAULT('Provider'),
   address character varying(50) NOT NULL DEFAULT('1111 B St'),
@@ -42,7 +42,7 @@ CREATE TABLE provider (
 
 DROP TABLE IF EXISTS services;
 
-CREATE TABLE services(
+CREATE TABLE services (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
   service_name character varying(25) NOT NULL DEFAULT(''),
   provider_id int NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE services(
   OIDS=FALSE
 );
 
-INSERT INTO consumer (first_name, last_name, address, city, state, zip, password, customer_id) VALUES (
+INSERT INTO consumers (first_name, last_name, address, city, state, zip, password, customer_id) VALUES (
   'First',
   'Last',
   '1234 A St',
@@ -65,7 +65,7 @@ INSERT INTO consumer (first_name, last_name, address, city, state, zip, password
   1)
 RETURNING id, created_at;
 
-INSERT INTO provider (provider_id) VALUES (1) RETURNING id, created_at;
+INSERT INTO providers (provider_id) VALUES (1) RETURNING id, created_at;
 
 INSERT INTO services (service_name, provider_id) VALUES ('mowing', 1) RETURNING id, created_at;
 INSERT INTO services (service_name, provider_id) VALUES ('weed-eating', 1) RETURNING id, created_at;
