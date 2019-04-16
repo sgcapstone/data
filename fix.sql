@@ -49,21 +49,12 @@ CREATE TABLE services (
   created_at timestamp without time zone NOT NULL DEFAULT now(),
   updated_at timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT service_pkey PRIMARY KEY(id),
-  FOREIGN KEY (provider_id) REFERENCES provider(provider_id)
+  FOREIGN KEY (provider_id) REFERENCES providers(provider_id)
 ) WITH (
   OIDS=FALSE
 );
 
-INSERT INTO consumers (first_name, last_name, address, city, state, zip, password, customer_id) VALUES (
-  'First',
-  'Last',
-  '1234 A St',
-  'City',
-  'State',
-  '12345',
-  'password',
-  1)
-RETURNING id, created_at;
+INSERT INTO consumers (first_name, last_name, address, city, state, zip, password, customer_id) VALUES ('First', 'Last', '1234 A St', 'City', 'State', '12345', 'password', 1) RETURNING id, created_at;
 
 INSERT INTO providers (provider_id) VALUES (1) RETURNING id, created_at;
 

@@ -5,7 +5,7 @@ CREATE TABLE services (
   created_at timestamp without time zone NOT NULL DEFAULT now(),
   updated_at timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT service_pkey PRIMARY KEY(id),
-  FOREIGN KEY (provider_id) REFERENCES provider(provider_id)
+  FOREIGN KEY (provider_id) REFERENCES providers(provider_id)
 ) WITH (
   OIDS=FALSE
 );
