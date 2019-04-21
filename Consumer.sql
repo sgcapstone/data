@@ -24,7 +24,7 @@ INSERT INTO consumers (first_name, last_name, address, city, state, zip, passwor
   'City',
   'State',
   '12345',
-  'password',
+  '$2b$10$ZQJQOvD70qQP6z3L5CdeZOiyBSm5GY9gork4zIvaMPfwEWi4Kneou',
   1)
 RETURNING id, created_at;
 
