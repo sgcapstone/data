@@ -8,7 +8,7 @@ CREATE TABLE providers (
   provider_id int NOT NULL UNIQUE,
   phone character varying(15) NOT NULL DEFAULT('18008675309'),
   email character varying(50) NOT NULL DEFAULT('provider@provider.com'),
-  password character varying(255) NOT NULL DEFAULT('password'),
+  password character varying(255) NOT NULL DEFAULT('$2b$10$ZQJQOvD70qQP6z3L5CdeZOiyBSm5GY9gork4zIvaMPfwEWi4Kneou'),
   created_at timestamp without time zone NOT NULL DEFAULT now(),
   updated_at timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT provider_pkey PRIMARY KEY(id)

@@ -2,6 +2,8 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 DROP TABLE IF EXISTS consumers;
+DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS providers;
 
 CREATE TABLE consumers (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
@@ -20,8 +22,6 @@ CREATE TABLE consumers (
     OIDS=FALSE
 );
 
-DROP TABLE IF EXISTS providers;
-
 CREATE TABLE providers (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
   provider_name character varying(50) NOT NULL DEFAULT('Provider'),
@@ -32,15 +32,13 @@ CREATE TABLE providers (
   provider_id int NOT NULL UNIQUE,
   phone character varying(15) NOT NULL DEFAULT('18008675309'),
   email character varying(50) NOT NULL DEFAULT('provider@provider.com'),
-  password character varying(255) NOT NULL DEFAULT('password'),
+  password character varying(255) NOT NULL DEFAULT('$2b$10$ZQJQOvD70qQP6z3L5CdeZOiyBSm5GY9gork4zIvaMPfwEWi4Kneou'),
   created_at timestamp without time zone NOT NULL DEFAULT now(),
   updated_at timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT provider_pkey PRIMARY KEY(id)
 ) WITH (
   OIDS=FALSE
 );
-
-DROP TABLE IF EXISTS services;
 
 CREATE TABLE services (
   id uuid NOT NULL DEFAULT gen_random_uuid(),
