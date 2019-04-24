@@ -57,6 +57,9 @@ INSERT INTO consumers (first_name, last_name, address, city, state, zip, passwor
 INSERT INTO providers (provider_id) VALUES (1) RETURNING id, created_at;
 INSERT INTO providers (provider_id) VALUES (2) RETURNING id, created_at;
 INSERT INTO providers (provider_id) VALUES (3) RETURNING id, created_at;
+INSERT INTO providers (provider_name, address, city, state, zip, provider_id, phone, email, password) VALUES ('Burris Bushwhackers', '227 N Harmon Ave', 'Fayetteville', 'AR', '72701', '5', '4795551234', 'burrisbushwhackers@gmail.com', 'hunter2') RETURNING id, created_at;
+INSERT INTO providers (provider_name, address, city, state, zip, provider_id, phone, email, password) VALUES ('Foster Fescue', '913 W Fairview St', 'Fayetteville', 'AR', '72701', '6', '4795551234', 'burrisbushwhackers@gmail.com', 'hunter2') RETURNING id, created_at;
+INSERT INTO providers (provider_name, address, city, state, zip, provider_id, phone, email, password) VALUES ('Cuts by Carlos', '648 W Dickson St', 'Fayetteville', 'AR', '72701', '7', '4795551234', 'burrisbushwhackers@gmail.com', 'hunter2') RETURNING id, created_at;
 
 INSERT INTO services (service_name, provider_id) VALUES ('mowing', 1) RETURNING id, created_at;
 INSERT INTO services (service_name, provider_id) VALUES ('weed-eating', 1) RETURNING id, created_at;
